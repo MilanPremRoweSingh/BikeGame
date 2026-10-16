@@ -1,0 +1,610 @@
+[gd_scene format=3 uid="uid://svw18oqa6vn5"]
+
+[ext_resource type="PackedScene" uid="uid://bprihlq18cp41" path="res://scripts/player/first_person_bike.tscn" id="1_bike"]
+[ext_resource type="Shader" uid="uid://ds0amdpqk5kk1" path="res://assets/materials/master_material.gdshader" id="1_d6tcy"]
+[ext_resource type="Shader" uid="uid://c2gbprdtxypl4" path="res://assets/materials/sky.gdshader" id="1_nbtcw"]
+[ext_resource type="CompressedCubemap" uid="uid://red2scjr0en8" path="res://assets/textures/skybox/cubemap.png" id="2_nbtcw"]
+[ext_resource type="Script" uid="uid://dvlgclv0w1a38" path="res://addons/citycrafter/citycrafter.gd" id="3_8nv07"]
+[ext_resource type="Script" uid="uid://bdjvc6rbjwwvg" path="res://addons/citycrafter/city_configuration.gd" id="4_r5gwa"]
+[ext_resource type="PackedScene" uid="uid://07v7qamve5vd" path="res://assets/models/Toronto/toronto.glb" id="5_r5gwa"]
+[ext_resource type="Shader" uid="uid://gqwt4t2tasvu" path="res://scenes/quantize.gdshader" id="6_d6tcy"]
+[ext_resource type="PackedScene" uid="uid://dxmhb8q2c7wje" path="res://assets/scene/street_light.tscn" id="9_si523"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3m43"]
+shader = ExtResource("1_nbtcw")
+shader_parameter/sky_cubemap = ExtResource("2_nbtcw")
+
+[sub_resource type="Sky" id="Sky_main"]
+sky_material = SubResource("ShaderMaterial_t3m43")
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 2
+background_energy_multiplier = 0.75
+sky = SubResource("Sky_main")
+ambient_light_source = 3
+ambient_light_color = Color(0.72, 0.76, 0.8, 1)
+ambient_light_energy = 0.0
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(80, 1, 80)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hentu"]
+render_priority = 0
+shader = ExtResource("1_d6tcy")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/metallic = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(80, 1, 80)
+
+[sub_resource type="Resource" id="Resource_d6tcy"]
+script = ExtResource("4_r5gwa")
+residential_buildings = Array[PackedScene]([null])
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smqfi"]
+shader = ExtResource("6_d6tcy")
+shader_parameter/kuwahara_radius = 3
+shader_parameter/pastel_strength = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nbtcw"]
+albedo_color = Color(0.68044066, 0.52889043, 0.48917305, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_smqfi"]
+size = Vector3(1, 1, 1.1616211)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_smqfi"]
+
+[node name="BikePlayground" type="Node3D" unique_id=1771457929]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206855430]
+environment = SubResource("Environment_main")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=352154889]
+transform = Transform3D(0.8348475, 0.3204474, -0.44759616, 0, -0.8131005, -0.5821228, -0.5504805, 0.48598397, -0.67881525, 8, 18, 10)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=307000125]
+transform = Transform3D(57.268913, 0, 0, 0, 1, 0, 0, 0, 125.56376, 0, 71.21535, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=564148833]
+mesh = SubResource("BoxMesh_ground")
+surface_material_override/0 = SubResource("ShaderMaterial_hentu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1085794741]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="FirstPersonBike" parent="." unique_id=1213391190 instance=ExtResource("1_bike")]
+transform = Transform3D(0.91859555, 0, 0.39519888, 0, 1, 0, -0.39519888, 0, 0.91859555, 271.47827, 74.91752, -159.07465)
+
+[node name="CityCrafter" type="Node3D" parent="." unique_id=1606141995]
+script = ExtResource("3_8nv07")
+city_configuration = SubResource("Resource_d6tcy")
+metadata/_custom_type_script = "uid://dvlgclv0w1a38"
+
+[node name="toronto" parent="." unique_id=589676410 instance=ExtResource("5_r5gwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.421, 0, 52.264)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1571663454]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=882454350]
+material = SubResource("ShaderMaterial_smqfi")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1128936572]
+transform = Transform3D(623.6598, 0, 0, 0, 11.99487, 0, 0, 0, 3.4937918, 16.968506, 74.97908, 404.07404)
+material_override = SubResource("StandardMaterial3D_nbtcw")
+mesh = SubResource("BoxMesh_smqfi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=2013303308]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=788898939]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+shape = SubResource("BoxShape3D_smqfi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=514500940]
+transform = Transform3D(626.98395, 0, 0, 0, 11.99487, 0, 0, 0, 3.4937918, 16.968506, 73.115295, -285.63138)
+material_override = SubResource("StandardMaterial3D_nbtcw")
+mesh = SubResource("BoxMesh_smqfi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2" unique_id=597970321]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=764824976]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+shape = SubResource("BoxShape3D_smqfi")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1969616085]
+transform = Transform3D(-3.055438e-05, 0, -3.4937918, 0, 11.99487, 0, 699.00275, 0, -1.5271848e-07, 320.40585, 74.97908, 58.686523)
+material_override = SubResource("StandardMaterial3D_nbtcw")
+mesh = SubResource("BoxMesh_smqfi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4" unique_id=583899065]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4" unique_id=851743105]
+transform = Transform3D(0.99999994, 0, 1.3877788e-17, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_smqfi")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1643447997]
+transform = Transform3D(-3.055438e-05, 0, -3.4937918, 0, 11.99487, 0, 699.00275, 0, -1.5271848e-07, -289.91263, 73.254875, 58.686497)
+material_override = SubResource("StandardMaterial3D_nbtcw")
+mesh = SubResource("BoxMesh_smqfi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5" unique_id=1858748751]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D" unique_id=123772813]
+transform = Transform3D(0.99999994, 0, 1.3877788e-17, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_smqfi")
+
+[node name="Lights" type="Node" parent="." unique_id=809081045]
+
+[node name="street-light" parent="Lights" unique_id=1197533430 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -273.45874, 71.81071, 81.73005)
+
+[node name="street-light2" parent="Lights" unique_id=1290409942 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -238.429, 71.81071, 88.778854)
+
+[node name="street-light3" parent="Lights" unique_id=765993243 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -200.6483, 71.81071, 61.099712)
+
+[node name="street-light4" parent="Lights" unique_id=791752189 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -173.96442, 71.81071, 72.20017)
+
+[node name="street-light5" parent="Lights" unique_id=403279500 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -135.17163, 71.81071, 44.428932)
+
+[node name="street-light6" parent="Lights" unique_id=155461153 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -99.176315, 71.81071, 52.14122)
+
+[node name="street-light7" parent="Lights" unique_id=1529937202 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -70.70201, 71.81071, 25.525738)
+
+[node name="street-light8" parent="Lights" unique_id=2070948836 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -29.271418, 71.81071, 29.654018)
+
+[node name="street-light9" parent="Lights" unique_id=1441162994 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -3.5731373, 71.81071, 5.7311373)
+
+[node name="street-light10" parent="Lights" unique_id=765562261 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 37.11264, 71.81071, 10.461831)
+
+[node name="street-light11" parent="Lights" unique_id=918514519 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 65.36682, 71.81071, -14.985321)
+
+[node name="street-light12" parent="Lights" unique_id=706515075 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 100.690796, 71.81071, -3.765358)
+
+[node name="street-light13" parent="Lights" unique_id=1006914722 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 131.96109, 71.81071, -30.893854)
+
+[node name="street-light14" parent="Lights" unique_id=2133247154 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 170.54189, 71.81071, -24.590837)
+
+[node name="street-light15" parent="Lights" unique_id=1528046511 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 205.92973, 71.81071, -52.275368)
+
+[node name="street-light18" parent="Lights" unique_id=900355375 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 184.3905, 71.81071, -84.2259)
+
+[node name="street-light19" parent="Lights" unique_id=177850928 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 185.12747, 71.81071, -122.29424)
+
+[node name="street-light32" parent="Lights" unique_id=1010691042 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 88.95459, 71.81071, -42.929417)
+
+[node name="street-light33" parent="Lights" unique_id=1974426704 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 89.69156, 71.81071, -80.99776)
+
+[node name="street-light34" parent="Lights" unique_id=228436597 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 63.99597, 71.81071, -130.82326)
+
+[node name="street-light35" parent="Lights" unique_id=414063834 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 64.73294, 71.81071, -168.89159)
+
+[node name="street-light36" parent="Lights" unique_id=746941313 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 33.367714, 71.81071, -237.80772)
+
+[node name="street-light37" parent="Lights" unique_id=1323032439 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 34.104683, 71.81071, -275.87604)
+
+[node name="street-light38" parent="Lights" unique_id=1315847443 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 120.22324, 71.81068, 61.34406)
+
+[node name="street-light39" parent="Lights" unique_id=1268325825 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 120.96021, 71.81068, 23.275745)
+
+[node name="street-light125" parent="Lights" unique_id=902858906 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 247.40921, 71.81068, 132.27307)
+
+[node name="street-light126" parent="Lights" unique_id=387460524 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 248.14618, 71.81068, 94.20476)
+
+[node name="street-light127" parent="Lights" unique_id=735124179 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 267.677, 71.810684, 201.62424)
+
+[node name="street-light128" parent="Lights" unique_id=1438456090 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 268.41397, 71.810684, 163.55592)
+
+[node name="street-light129" parent="Lights" unique_id=1882753281 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 292.78656, 71.810684, 282.84122)
+
+[node name="street-light130" parent="Lights" unique_id=1087615159 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 293.52353, 71.810684, 244.7729)
+
+[node name="street-light131" parent="Lights" unique_id=829919987 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 311.3976, 71.810684, 353.86334)
+
+[node name="street-light132" parent="Lights" unique_id=1498848439 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 312.13458, 71.810684, 315.79504)
+
+[node name="street-light40" parent="Lights" unique_id=1889272072 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 140.84795, 71.81068, 127.90581)
+
+[node name="street-light41" parent="Lights" unique_id=1767896276 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 141.58492, 71.81068, 89.8375)
+
+[node name="street-light42" parent="Lights" unique_id=2053947039 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 161.33395, 71.81068, 198.43846)
+
+[node name="street-light43" parent="Lights" unique_id=186784118 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 162.07092, 71.81068, 160.37015)
+
+[node name="street-light44" parent="Lights" unique_id=379438204 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 180.96729, 71.81068, 266.9167)
+
+[node name="street-light45" parent="Lights" unique_id=264250317 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 181.70425, 71.81068, 228.84836)
+
+[node name="street-light46" parent="Lights" unique_id=1074784821 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 199.46927, 71.81068, 329.39093)
+
+[node name="street-light47" parent="Lights" unique_id=1030098360 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 200.20624, 71.81068, 291.3226)
+
+[node name="street-light48" parent="Lights" unique_id=1636309828 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 219.93791, 71.81068, 399.70847)
+
+[node name="street-light49" parent="Lights" unique_id=25062355 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 220.67488, 71.81068, 361.64014)
+
+[node name="street-light50" parent="Lights" unique_id=106870438 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 111.72874, 71.81068, 389.8281)
+
+[node name="street-light51" parent="Lights" unique_id=1738581539 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 112.465706, 71.81068, 351.75977)
+
+[node name="street-light52" parent="Lights" unique_id=1255811883 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 88.56682, 71.81068, 327.14743)
+
+[node name="street-light53" parent="Lights" unique_id=1807959099 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 89.30379, 71.81068, 289.0791)
+
+[node name="street-light54" parent="Lights" unique_id=1755534119 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 70.31044, 71.81068, 259.82983)
+
+[node name="street-light55" parent="Lights" unique_id=1593920771 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 71.04741, 71.81068, 221.76149)
+
+[node name="street-light56" parent="Lights" unique_id=759957041 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 50.309547, 71.81068, 187.43199)
+
+[node name="street-light57" parent="Lights" unique_id=1470496668 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 51.046516, 71.81068, 149.36365)
+
+[node name="street-light58" parent="Lights" unique_id=290031872 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 32.531754, 71.81068, 124.22334)
+
+[node name="street-light62" parent="Lights" unique_id=1926629254 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 1.2920094, 71.81068, -20.208776)
+
+[node name="street-light63" parent="Lights" unique_id=994069524 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -17.222754, 71.81068, -45.349083)
+
+[node name="street-light65" parent="Lights" unique_id=2035852961 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -15.89942, 71.81068, -79.29449)
+
+[node name="street-light66" parent="Lights" unique_id=416077307 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -34.414185, 71.81068, -104.43479)
+
+[node name="street-light67" parent="Lights" unique_id=1310558419 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -33.590164, 71.81068, -137.84567)
+
+[node name="street-light68" parent="Lights" unique_id=137618109 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -52.10493, 71.81068, -162.98598)
+
+[node name="street-light69" parent="Lights" unique_id=1609494785 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -50.77511, 71.81068, -198.661)
+
+[node name="street-light70" parent="Lights" unique_id=2062214196 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -69.28987, 71.81068, -223.8013)
+
+[node name="street-light71" parent="Lights" unique_id=625705195 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -66.77156, 71.81068, -251.68494)
+
+[node name="street-light72" parent="Lights" unique_id=1639491882 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -85.28632, 71.81068, -276.82523)
+
+[node name="street-light73" parent="Lights" unique_id=184907 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -170.88715, 71.81068, -247.25229)
+
+[node name="street-light74" parent="Lights" unique_id=1132239966 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -189.40192, 71.81068, -272.39258)
+
+[node name="street-light75" parent="Lights" unique_id=1125970077 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -154.20786, 71.81068, -187.5985)
+
+[node name="street-light76" parent="Lights" unique_id=620718953 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -172.72263, 71.81068, -212.73878)
+
+[node name="street-light77" parent="Lights" unique_id=1105676330 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -138.83295, 71.81068, -135.31909)
+
+[node name="street-light78" parent="Lights" unique_id=189042181 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -157.34772, 71.81068, -160.45938)
+
+[node name="street-light83" parent="Lights" unique_id=1860554379 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -277.24548, 71.81068, -264.09656)
+
+[node name="street-light84" parent="Lights" unique_id=1054990644 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -280.3853, 71.81068, -236.95744)
+
+[node name="street-light94" parent="Lights" unique_id=850570252 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -178.13863, 71.81067, 89.0059)
+
+[node name="street-light95" parent="Lights" unique_id=1793856417 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -181.27846, 71.81067, 116.14501)
+
+[node name="street-light96" parent="Lights" unique_id=114139548 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -155.23712, 71.81067, 167.35497)
+
+[node name="street-light97" parent="Lights" unique_id=1577089465 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -158.37695, 71.81067, 194.49408)
+
+[node name="street-light98" parent="Lights" unique_id=1800676444 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -137.34344, 71.81067, 228.98587)
+
+[node name="street-light99" parent="Lights" unique_id=1387314497 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -140.48328, 71.81067, 256.125)
+
+[node name="street-light100" parent="Lights" unique_id=1330505158 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -116.52603, 71.81067, 301.51398)
+
+[node name="street-light101" parent="Lights" unique_id=1386807311 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -119.66586, 71.81067, 328.6531)
+
+[node name="street-light102" parent="Lights" unique_id=1121791949 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -102.63367, 71.81067, 360.64697)
+
+[node name="street-light103" parent="Lights" unique_id=1840005562 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -105.7735, 71.81067, 387.7861)
+
+[node name="street-light104" parent="Lights" unique_id=1745832860 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -234.028, 71.81067, 218.4872)
+
+[node name="street-light105" parent="Lights" unique_id=693555795 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -250.8836, 71.81067, 201.35512)
+
+[node name="street-light110" parent="Lights" unique_id=911885215 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -237.69064, 71.81067, 241.99808)
+
+[node name="street-light111" parent="Lights" unique_id=1332788504 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -275.50742, 71.81067, 261.9448)
+
+[node name="street-light112" parent="Lights" unique_id=344708973 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -281.1298, 71.81067, 285.65265)
+
+[node name="street-light113" parent="Lights" unique_id=1976621013 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -272.55536, 71.81067, 306.7019)
+
+[node name="street-light114" parent="Lights" unique_id=1717995189 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -275.0223, 71.81067, 329.88004)
+
+[node name="street-light115" parent="Lights" unique_id=862045274 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -257.8107, 71.81067, 367.13187)
+
+[node name="street-light116" parent="Lights" unique_id=692405281 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -260.27765, 71.81067, 390.31)
+
+[node name="street-light106" parent="Lights" unique_id=1151917496 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -257.32397, 71.81067, 141.57407)
+
+[node name="street-light107" parent="Lights" unique_id=694600177 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -271.1924, 71.81067, 121.1445)
+
+[node name="street-light108" parent="Lights" unique_id=1977897535 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -245.73953, 71.81067, 181.2923)
+
+[node name="street-light109" parent="Lights" unique_id=1195629008 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -259.60797, 71.81067, 160.86273)
+
+[node name="street-light85" parent="Lights" unique_id=522808659 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -261.30527, 71.810684, -209.81578)
+
+[node name="street-light86" parent="Lights" unique_id=23022011 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -264.4451, 71.810684, -182.67667)
+
+[node name="street-light87" parent="Lights" unique_id=1723515147 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -245.10909, 71.810684, -149.40323)
+
+[node name="street-light88" parent="Lights" unique_id=918372449 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -248.24892, 71.810684, -122.264114)
+
+[node name="street-light89" parent="Lights" unique_id=1617758609 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -229.03468, 71.810684, -96.64271)
+
+[node name="street-light90" parent="Lights" unique_id=729148500 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -232.17451, 71.810684, -69.50359)
+
+[node name="street-light91" parent="Lights" unique_id=1389431795 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -211.19614, 71.810684, -31.91584)
+
+[node name="street-light92" parent="Lights" unique_id=1558592252 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -214.33597, 71.810684, -4.776726)
+
+[node name="street-light93" parent="Lights" unique_id=1124649958 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -193.02763, 71.810684, 29.162361)
+
+[node name="street-light79" parent="Lights" unique_id=1488130468 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -118.04257, 71.81068, -63.10112)
+
+[node name="street-light80" parent="Lights" unique_id=1640322356 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -136.55734, 71.81068, -88.24141)
+
+[node name="street-light118" parent="Lights" unique_id=20170070 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -72.574715, 71.81068, 130.93724)
+
+[node name="street-light81" parent="Lights" unique_id=1317899984 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -100.847, 71.81068, -7.053547)
+
+[node name="street-light117" parent="Lights" unique_id=493416172 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -73.88579, 71.81068, 90.111305)
+
+[node name="street-light119" parent="Lights" unique_id=1303181202 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -50.991116, 71.81068, 215.43596)
+
+[node name="street-light120" parent="Lights" unique_id=2110315080 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -46.109806, 71.81068, 174.39963)
+
+[node name="street-light121" parent="Lights" unique_id=2046836104 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -27.060019, 71.81068, 297.32703)
+
+[node name="street-light122" parent="Lights" unique_id=1453274357 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, -22.178709, 71.81068, 256.2907)
+
+[node name="street-light123" parent="Lights" unique_id=81836637 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -0.72522163, 71.81068, 380.47888)
+
+[node name="street-light124" parent="Lights" unique_id=1372585397 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 4.156088, 71.81068, 339.44257)
+
+[node name="street-light82" parent="Lights" unique_id=358794577 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, -122.25814, 71.81068, -32.313305)
+
+[node name="street-light64" parent="Lights" unique_id=1213306031 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 11.580316, 71.81068, 53.890152)
+
+[node name="street-light59" parent="Lights" unique_id=2003062203 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 33.268723, 71.81068, 86.155)
+
+[node name="street-light60" parent="Lights" unique_id=177705074 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 32.531754, 71.81068, 124.22334)
+
+[node name="street-light61" parent="Lights" unique_id=1422525646 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 33.268723, 71.81068, 86.155)
+
+[node name="street-light20" parent="Lights" unique_id=1974288161 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 165.3889, 71.81071, -147.8577)
+
+[node name="street-light21" parent="Lights" unique_id=894674707 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 166.12587, 71.81071, -185.92606)
+
+[node name="street-light22" parent="Lights" unique_id=937795018 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 142.32643, 71.81071, -223.76218)
+
+[node name="street-light23" parent="Lights" unique_id=561041249 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 143.0634, 71.81071, -261.83054)
+
+[node name="street-light24" parent="Lights" unique_id=568166303 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 245.04103, 71.81071, -233.025)
+
+[node name="street-light25" parent="Lights" unique_id=2515512 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 253.27904, 71.81071, -269.07407)
+
+[node name="street-light26" parent="Lights" unique_id=1520853800 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 262.1807, 71.810715, -173.51144)
+
+[node name="street-light27" parent="Lights" unique_id=2141806792 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 270.41873, 71.810715, -209.56052)
+
+[node name="street-light28" parent="Lights" unique_id=1949045224 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 278.6567, 71.810715, -115.27861)
+
+[node name="street-light29" parent="Lights" unique_id=1604401399 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 288.50067, 71.810715, -150.3629)
+
+[node name="street-light30" parent="Lights" unique_id=1366295148 instance=ExtResource("9_si523")]
+transform = Transform3D(-0.30670068, 0, 1.1446221, 0, 1.185, 0, -1.1446221, 0, -0.30670068, 298.66144, 71.810715, -54.497444)
+
+[node name="street-light31" parent="Lights" unique_id=1674002139 instance=ExtResource("9_si523")]
+transform = Transform3D(0.3067008, 0, -1.1446222, 0, 1.185, 0, 1.1446222, 0, 0.3067008, 306.89948, 71.810715, -90.54652)
+
+[node name="street-light17" parent="Lights" unique_id=1170273524 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 261.64066, 71.81071, -72.24209)
+
+[node name="street-light16" parent="Lights" unique_id=1314933524 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 245.333, 71.81071, -46.00819)
+
+[node name="street-light133" parent="Lights" unique_id=1852255996 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 263.17535, 71.81071, 135.25461)
+
+[node name="street-light134" parent="Lights" unique_id=779178163 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 246.86769, 71.81071, 161.4885)
+
+[node name="street-light135" parent="Lights" unique_id=1629483386 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 307.7689, 71.81071, 126.90676)
+
+[node name="street-light136" parent="Lights" unique_id=1507367938 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 289.3546, 71.81071, 142.81609)
+
+[node name="street-light137" parent="Lights" unique_id=505110388 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 233.90863, 71.81071, 147.16782)
+
+[node name="street-light138" parent="Lights" unique_id=1815081143 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 215.49435, 71.81071, 163.07713)
+
+[node name="street-light139" parent="Lights" unique_id=53120381 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 182.96625, 71.81071, 159.67722)
+
+[node name="street-light140" parent="Lights" unique_id=2035054441 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 135.36371, 71.81071, 186.73999)
+
+[node name="street-light141" parent="Lights" unique_id=1500116955 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 102.8356, 71.81071, 183.34007)
+
+[node name="street-light142" parent="Lights" unique_id=77669064 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 76.93475, 71.81071, 204.1592)
+
+[node name="street-light143" parent="Lights" unique_id=1438495567 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 44.406647, 71.81071, 200.75928)
+
+[node name="street-light144" parent="Lights" unique_id=1755343300 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 21.629005, 71.8107, 222.96796)
+
+[node name="street-light145" parent="Lights" unique_id=726366283 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -10.899101, 71.8107, 219.56804)
+
+[node name="street-light146" parent="Lights" unique_id=294508779 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 226.31932, 71.81076, -181.97063)
+
+[node name="street-light147" parent="Lights" unique_id=368723661 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 193.79121, 71.81076, -185.37054)
+
+[node name="street-light148" parent="Lights" unique_id=716252077 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 130.13434, 71.81076, -156.38739)
+
+[node name="street-light149" parent="Lights" unique_id=339819505 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 97.606224, 71.81076, -159.78731)
+
+[node name="street-light150" parent="Lights" unique_id=1883707944 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, 46.37471, 71.81076, -133.52882)
+
+[node name="street-light151" parent="Lights" unique_id=1288130508 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, 13.846596, 71.81076, -136.92874)
+
+[node name="street-light152" parent="Lights" unique_id=906605619 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -1.4627666, 71.81076, -256.46033)
+
+[node name="street-light153" parent="Lights" unique_id=1897625183 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -33.990883, 71.81076, -259.86023)
+
+[node name="street-light154" parent="Lights" unique_id=63506877 instance=ExtResource("9_si523")]
+transform = Transform3D(-1.1446221, 0, -0.3067007, 0, 1.185, 0, 0.3067007, 0, -1.1446221, -110.178154, 71.81076, -225.28906)
+
+[node name="street-light155" parent="Lights" unique_id=997361409 instance=ExtResource("9_si523")]
+transform = Transform3D(1.1446221, 0, 0.30670062, 0, 1.185, 0, -0.30670062, 0, 1.1446221, -142.70627, 71.81076, -228.68896)

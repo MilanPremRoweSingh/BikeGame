@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://bprihlq18cp41"]
+
+[ext_resource type="Script" uid="uid://dtu66rnopfjlg" path="res://player/first_person_bike.gd" id="1_bike"]
+[ext_resource type="Script" uid="uid://dxvblb4usoak2" path="res://player/bike_gear.gd" id="2_2hy8o"]
+[ext_resource type="AudioStream" uid="uid://cxqjuxep4qmmi" path="res://assets/sounds/pedal_loop.wav" id="2_5q06v"]
+[ext_resource type="Script" uid="uid://diqkloimrhyuo" path="res://scripts/free_wheel_hub.gd" id="3_3irr3"]
+[ext_resource type="AudioStream" uid="uid://xlm4uvvyswgs" path="res://assets/sounds/coast_loop.wav" id="3_4qoxh"]
+[ext_resource type="AudioStream" uid="uid://46qixtffatk5" path="res://assets/sounds/pedal_loop_right.wav" id="3_bkpeh"]
+[ext_resource type="AudioStream" uid="uid://ct1pctowc8pyk" path="res://samples/hp/click-002.wav" id="4_1kkfv"]
+[ext_resource type="Script" uid="uid://b3gnruy6tpb3i" path="res://scripts/pedal_thunks.gd" id="4_apjdx"]
+[ext_resource type="AudioStream" uid="uid://b2pdsfjt17rif" path="res://assets/sounds/pedal_loop_left.wav" id="4_q7a3t"]
+[ext_resource type="AudioStream" uid="uid://dcmf8mslpmlho" path="res://assets/sounds/pedal_lead_in.wav" id="5_q7a3t"]
+[ext_resource type="AudioStream" uid="uid://bar5obik3723v" path="res://samples/hp/click-003.wav" id="5_v0mfr"]
+[ext_resource type="AudioStream" uid="uid://c7q3yaejvhgov" path="res://samples/hp1600/click-004.wav" id="6_jy7al"]
+[ext_resource type="AudioStream" uid="uid://jy0hlf78piip" path="res://assets/sounds/coast_lead_in.wav" id="7_d26n5"]
+[ext_resource type="AudioStream" uid="uid://degqve2sjw7qa" path="res://samples/hp1600/click-005.wav" id="7_rms06"]
+[ext_resource type="AudioStream" uid="uid://yr3w8242up4n" path="res://samples/hp1600/click-006.wav" id="8_57vqi"]
+[ext_resource type="AudioStream" uid="uid://5j6ft5w0t30t" path="res://samples/hp1600/click-007.wav" id="9_aw0wk"]
+[ext_resource type="AudioStream" uid="uid://b2pmpb7lfn0lt" path="res://samples/hp1600/click-008.wav" id="10_xejei"]
+[ext_resource type="AudioStream" uid="uid://br6bd30fu5r0o" path="res://samples/hp1600/click-009.wav" id="11_sui3a"]
+[ext_resource type="AudioStream" uid="uid://d35eodboy4q2w" path="res://samples/hp1600/click-010.wav" id="12_o1s7t"]
+[ext_resource type="AudioStream" uid="uid://t3x3rbqkvm8p" path="res://samples/hp1600/click-018.wav" id="13_l07no"]
+[ext_resource type="AudioStream" uid="uid://xo8yy3tvkn0t" path="res://samples/hp1600/click-019.wav" id="14_2a4sg"]
+[ext_resource type="AudioStream" uid="uid://483g3uqaahdk" path="res://samples/hp1600/click-020.wav" id="15_vqyqh"]
+[ext_resource type="AudioStream" uid="uid://kx1sknqviq8f" path="res://samples/hp1600/click-021.wav" id="16_251dr"]
+[ext_resource type="AudioStream" uid="uid://bcvfbfjgyegko" path="res://samples/hp1600/click-022.wav" id="17_ktnfh"]
+[ext_resource type="AudioStream" uid="uid://dlour5mm53kvl" path="res://samples/hp1600/click-023.wav" id="18_2y0yw"]
+[ext_resource type="AudioStream" uid="uid://bf8ffpmf36htd" path="res://samples/hp1600/click-024.wav" id="19_2h68n"]
+[ext_resource type="AudioStream" uid="uid://dqg03ge24mdbg" path="res://samples/hp1600/click-025.wav" id="20_xjbhr"]
+[ext_resource type="AudioStream" uid="uid://dgu5aml4cj53g" path="res://samples/hp1600/click-026.wav" id="21_1nqq8"]
+[ext_resource type="AudioStream" uid="uid://drhnkj78wqjui" path="res://samples/hp1600_pedaling/pedaling_click-001.wav" id="22_hlxwa"]
+[ext_resource type="AudioStream" uid="uid://bqary5ascvwdb" path="res://samples/hp1600_pedaling/pedaling_click-002.wav" id="23_6hakq"]
+[ext_resource type="AudioStream" uid="uid://btxhpmjpgocsw" path="res://samples/hp1600_pedaling/pedaling_click-003.wav" id="24_2orrd"]
+[ext_resource type="AudioStream" uid="uid://bmktst3nv5iet" path="res://samples/hp1600_pedaling/pedaling_click-004.wav" id="25_t7pqm"]
+[ext_resource type="AudioStream" uid="uid://bnt6fd5gq2r1y" path="res://samples/hp1600_pedaling/pedaling_click-005.wav" id="26_7ceas"]
+[ext_resource type="AudioStream" uid="uid://v6f5h8v7wd03" path="res://samples/hp1600_pedaling/pedaling_click-006.wav" id="27_ja2j5"]
+[ext_resource type="AudioStream" uid="uid://bj66dgq2iy5t3" path="res://samples/hp1600_pedaling/pedaling_click-007.wav" id="28_25yu2"]
+[ext_resource type="AudioStream" uid="uid://c7cm0beasnf42" path="res://samples/hp1600_pedaling/pedaling_click-008.wav" id="29_f6gi5"]
+[ext_resource type="AudioStream" uid="uid://qirefhos7lka" path="res://samples/hp1600_pedaling/pedaling_click-009.wav" id="30_agtfc"]
+[ext_resource type="AudioStream" uid="uid://t0atpjfywncs" path="res://samples/hp1600_pedaling/pedaling_click-010.wav" id="31_x7ujp"]
+[ext_resource type="AudioStream" uid="uid://ctho3ck0sm8t2" path="res://samples/hp1600_pedaling/pedaling_click-011.wav" id="32_f2hi7"]
+[ext_resource type="AudioStream" uid="uid://dw4isl1ncvl1l" path="res://samples/hp1600_pedaling/pedaling_click-012.wav" id="33_unmgg"]
+[ext_resource type="AudioStream" uid="uid://bkr6ep3h1b18c" path="res://samples/hp1600_pedaling/pedaling_click-013.wav" id="34_cqh1k"]
+[ext_resource type="AudioStream" uid="uid://doy8gk0kg4moi" path="res://samples/hp1600_pedaling/pedaling_click-014.wav" id="35_wuf1r"]
+[ext_resource type="AudioStream" uid="uid://dyh6o32j5eufw" path="res://samples/hp1600_pedaling/pedaling_click-015.wav" id="36_w74pf"]
+[ext_resource type="AudioStream" uid="uid://cng81j88h22at" path="res://samples/hp1600_pedaling/pedaling_click-016.wav" id="37_5hrap"]
+[ext_resource type="AudioStream" uid="uid://c1d8kk5xbe22o" path="res://samples/pedal_thunks/thunk-001.wav" id="39_2ajn5"]
+[ext_resource type="AudioStream" uid="uid://dy17jv3i4wnhj" path="res://samples/pedal_thunks/thunk-002.wav" id="40_242yf"]
+[ext_resource type="AudioStream" uid="uid://bhn6sw1jgbq7f" path="res://samples/pedal_thunks/thunk-003.wav" id="41_8es8w"]
+
+[sub_resource type="Resource" id="Resource_2hy8o"]
+script = ExtResource("2_2hy8o")
+min_effective_speed = 0.0
+metadata/_custom_type_script = "uid://dxvblb4usoak2"
+
+[sub_resource type="Resource" id="Resource_ctf4x"]
+script = ExtResource("2_2hy8o")
+min_effective_speed = 6.0
+max_effective_speed = 12.0
+max_speed = 16.0
+metadata/_custom_type_script = "uid://dxvblb4usoak2"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.32
+height = 1.55
+
+[sub_resource type="BoxMesh" id="BoxMesh_top_tube"]
+size = Vector3(0.06, 0.05, 0.85)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frame"]
+albedo_color = Color(0.12, 0.14, 0.18, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_down_tube"]
+size = Vector3(0.055, 0.05, 0.72)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_tube"]
+size = Vector3(0.05, 0.55, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat"]
+size = Vector3(0.14, 0.05, 0.28)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seat"]
+albedo_color = Color(0.18, 0.1, 0.08, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bar"]
+top_radius = 0.018
+bottom_radius = 0.018
+height = 0.52
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bar"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_stem"]
+size = Vector3(0.04, 0.16, 0.04)
+
+[sub_resource type="TorusMesh" id="TorusMesh_wheel"]
+inner_radius = 0.24
+outer_radius = 0.33
+rings = 18
+ring_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tire"]
+albedo_color = Color(0.07, 0.07, 0.07, 1)
+
+[node name="FirstPersonBike" type="CharacterBody3D" unique_id=1194670367]
+collision_layer = 2
+script = ExtResource("1_bike")
+coast_drag = 0.5
+reverse_speed = 1.0
+base_pedal_speed = 90.0
+max_pedal_speed = 540.0
+base_revolution_to_acceleration = 2.5
+transfer_smoothing = 0.0
+gears = Array[ExtResource("2_2hy8o")]([SubResource("Resource_2hy8o"), SubResource("Resource_ctf4x")])
+pedal_swap_overlap = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2099015946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=528871886]
+
+[node name="TopTube" type="MeshInstance3D" parent="Visuals" unique_id=956133570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, -0.05)
+mesh = SubResource("BoxMesh_top_tube")
+surface_material_override/0 = SubResource("StandardMaterial3D_frame")
+
+[node name="DownTube" type="MeshInstance3D" parent="Visuals" unique_id=1466666709]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 0.48, -0.08)
+mesh = SubResource("BoxMesh_down_tube")
+surface_material_override/0 = SubResource("StandardMaterial3D_frame")
+
+[node name="SeatTube" type="MeshInstance3D" parent="Visuals" unique_id=2060994861]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0.28)
+mesh = SubResource("BoxMesh_seat_tube")
+surface_material_override/0 = SubResource("StandardMaterial3D_frame")
+
+[node name="Seat" type="MeshInstance3D" parent="Visuals" unique_id=1766789629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0.32)
+mesh = SubResource("BoxMesh_seat")
+surface_material_override/0 = SubResource("StandardMaterial3D_seat")
+
+[node name="Handlebars" type="Node3D" parent="Visuals" unique_id=176241333]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02, -0.48)
+
+[node name="Bar" type="MeshInstance3D" parent="Visuals/Handlebars" unique_id=1364293442]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_bar")
+surface_material_override/0 = SubResource("StandardMaterial3D_bar")
+
+[node name="Stem" type="MeshInstance3D" parent="Visuals/Handlebars" unique_id=1908959973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0.08)
+mesh = SubResource("BoxMesh_stem")
+surface_material_override/0 = SubResource("StandardMaterial3D_bar")
+
+[node name="FrontWheel" type="Node3D" parent="Visuals" unique_id=1955716367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, -0.62)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visuals/FrontWheel" unique_id=694195640]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("TorusMesh_wheel")
+surface_material_override/0 = SubResource("StandardMaterial3D_tire")
+
+[node name="RearWheel" type="Node3D" parent="Visuals" unique_id=1702262596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0.55)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visuals/RearWheel" unique_id=2046949565]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("TorusMesh_wheel")
+surface_material_override/0 = SubResource("StandardMaterial3D_tire")
+
+[node name="Hub" type="AudioStreamPlayer3D" parent="Visuals/RearWheel" unique_id=817019418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.33, -0.55)
+unit_size = 5.0
+max_distance = 40.0
+doppler_tracking = 2
+script = ExtResource("3_3irr3")
+click_samples = Array[AudioStream]([ExtResource("4_1kkfv"), ExtResource("5_v0mfr"), ExtResource("6_jy7al"), ExtResource("7_rms06"), ExtResource("8_57vqi"), ExtResource("9_aw0wk"), ExtResource("10_xejei"), ExtResource("11_sui3a"), ExtResource("12_o1s7t"), ExtResource("13_l07no"), ExtResource("14_2a4sg"), ExtResource("15_vqyqh"), ExtResource("16_251dr"), ExtResource("17_ktnfh"), ExtResource("18_2y0yw"), ExtResource("19_2h68n"), ExtResource("20_xjbhr"), ExtResource("21_1nqq8")])
+pedal_samples = Array[AudioStream]([ExtResource("22_hlxwa"), ExtResource("23_6hakq"), ExtResource("24_2orrd"), ExtResource("25_t7pqm"), ExtResource("26_7ceas"), ExtResource("27_ja2j5"), ExtResource("28_25yu2"), ExtResource("29_f6gi5"), ExtResource("30_agtfc"), ExtResource("31_x7ujp"), ExtResource("32_f2hi7"), ExtResource("33_unmgg"), ExtResource("34_cqh1k"), ExtResource("35_wuf1r"), ExtResource("36_w74pf"), ExtResource("37_5hrap")])
+wheel_circumference = 3.0
+metadata/_custom_type_script = "uid://diqkloimrhyuo"
+
+[node name="Thunks" type="AudioStreamPlayer3D" parent="Visuals/RearWheel" unique_id=3393142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.33, -0.55)
+unit_size = 5.0
+max_distance = 40.0
+panning_strength = 1.99
+doppler_tracking = 2
+script = ExtResource("4_apjdx")
+thunk_samples = Array[AudioStream]([ExtResource("39_2ajn5"), ExtResource("40_242yf"), ExtResource("41_8es8w")])
+gain_db = -16.0
+metadata/_custom_type_script = "uid://b3gnruy6tpb3i"
+
+[node name="Head" type="Node3D" parent="." unique_id=62983303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0.18)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=429306072]
+current = true
+fov = 70.0
+far = 2000.0
+
+[node name="PedallingSound" type="AudioStreamPlayer" parent="." unique_id=2057596899]
+stream = ExtResource("2_5q06v")
+
+[node name="PedallingRightSound" type="AudioStreamPlayer" parent="." unique_id=1490295390]
+stream = ExtResource("3_bkpeh")
+
+[node name="PedallingLeftSound" type="AudioStreamPlayer" parent="." unique_id=1315713508]
+stream = ExtResource("4_q7a3t")
+
+[node name="PedallingLeadInSound" type="AudioStreamPlayer" parent="." unique_id=1406112552]
+stream = ExtResource("5_q7a3t")
+
+[node name="CoastSound" type="AudioStreamPlayer" parent="." unique_id=1581596110]
+stream = ExtResource("3_4qoxh")
+
+[node name="CoastLeadInSound" type="AudioStreamPlayer" parent="." unique_id=2095734979]
+stream = ExtResource("7_d26n5")
